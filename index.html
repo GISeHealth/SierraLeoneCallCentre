@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="iThing.css" type="text/css" />
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
   <style>
-    html, body {width:100%; height:100%; padding: 0; margin: 0;}
+       html, body {width:100%; height:100%; padding: 0; margin: 0;}
     #map { width: 100%; height:100%; background: black;}
     #menu { position: absolute; top: 15px; right: 400px; width: 500px; height:60px; background: transparent; z-index:10;}
     #menu a { 
@@ -19,7 +19,7 @@
       width: 70px;
       padding: 5px;
       text-align: center;
-      font: bold 11px "Helvetica",Arial;
+      font: bold 15px "Helvetica",Arial;
       line-height: normal;
       color: #555;
       border-radius: 4px;
@@ -49,81 +49,6 @@
         font-size: 13px;
         color: #444;
         cursor: auto;
-      }
-      #layer_selector li:hover {
-        background-color: #F0F0F0;
-        cursor: pointer;
-      }
-      #layer_selector li.selected {
-        background-color: #EEE;
-      }
-	  #net_type {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        padding: 0;
-      }
-
-      #net_type ul {
-        padding: 0; margin: 0;
-        list-style-type: none;
-      }
-
-      #net_type li {
-        border-bottom: 1px solid #999;
-        padding: 5px 15px;
-        font-family: "Helvetica", Arial;
-        font-size: 13px;
-        color: #444;
-        cursor: auto;
-      }
-
-      #net_type li:hover {
-        background-color: #F0F0F0;
-        cursor: pointer;
-      }
-
-      #net_type li.selected {
-        background-color: #EEE;
-      }
-      
-   	  #signal {
-        position: absolute;
-        top: 85px;
-        left: 10px;
-        padding: 0;
-      }
-   
-      #signal li:hover {
-        background-color: #F0F0F0;
-        cursor: pointer;
-      }
-
-      #signal li.selected {
-        background-color: #EEE;
-      }
-      
-      #signal ul {
-        padding: 0; margin: 0;
-        list-style-type: none;
-      }
-
-      #signal li {
-        border-bottom: 1px solid #999;
-        padding: 5px 15px;
-        font-family: "Helvetica", Arial;
-        font-size: 13px;
-        color: #444;
-        cursor: auto;
-      }
-
-      #signal li:hover {
-        background-color: #F0F0F0;
-        cursor: pointer;
-      }
-
-      #signal li.selected {
-        background-color: #EEE;
       }
       
   </style>
@@ -239,7 +164,8 @@
 		var legendCallType = new cdb.geo.ui.Legend({
            type: "custom",
            data: [
-            { name: "Numbers Of Calls (Sierra Leone)", value: "#FF9900" }
+            { name: "Death (Number of calls)", value: "#081B47" },
+            { name: "Sick (Number of calls)", value: "#B2DF8A" }
            ]
 		});
 		
@@ -263,120 +189,16 @@
 	var LayerActions = {
 
 	
-	  smart: function(layer){
-
-		if (smart_layer == true){
-			query = query.replace(/ net_name = 'Smart' /g,'');
-			query = query.replace(/\(  OR /g,'(');
-			query = query.replace(/\( OR /g,'(');
-			query = query.replace(/OR \)/g,')');
-			query = query.replace(/\(  AND \)/g,'');
-			query = query.replace(/OR  OR/g,'OR');
-  			$('.button.smart').removeClass('selected');
-  			removelayer == "";
-  			smart_layer = false;
-
-  			numb_butt_select = numb_butt_select - 1 ;
-
-  			if (numb_butt_select == 0){
-				query = query.replace(/ AND \(/g,'');
-				query = query.replace(/\)/g,'');
-  		  	}
-  		  	
-  		  	layer.setSQL(query);
-
-  		}else{
-  		if (numb_butt_select == 0){
-  		  	query = query + " AND ( net_name = 'Smart' )";
-  		  	}
-  		  else {
-  		    query = query.replace(/\)/g,' OR ');
-  		    query = query + " net_name = 'Smart' )";
-  		     }
-  			layer.setSQL(query);
-			smart_layer = true ;
-			numb_butt_select = numb_butt_select + 1 ;
-		}
-		
-		return smart_layer;
+	 death: function(){
+  			//query = query + " OR type = 'death' ";
+	  		//sublayers[1].setSQL(sql_global_type + query);
+	  		$('.button.sick').removeClass('selected');
 		
 	  },
-	  africell: function(layer){
-	
-		if (africell_layer == true){
-			query = query.replace(/ net_name = 'Africell' /g,'');
-			query = query.replace(/\(  OR /g,'(');
-			query = query.replace(/\( OR /g,'(');
-			query = query.replace(/OR \)/g,')');
-			query = query.replace(/\(  AND \)/g,'');
-			query = query.replace(/OR  OR/g,'OR');
-  			$('.button.africell').removeClass('selected');
-  			removelayer == "";
-  			africell_layer = false;
-
-  			numb_butt_select = numb_butt_select - 1 ;
-  			
-  			if (numb_butt_select == 0){
-				query = query.replace(/ AND \(/g,'');
-				query = query.replace(/\)/g,'');
-  		  	}
-  		  	
-  		  	layer.setSQL(query);
-
-  		}else{
-  		if (numb_butt_select == 0){
-  		  	query = query + " AND ( net_name = 'Africell' )";
-  		  	}
-  		  else {
-  		  query = query.replace(/\)/g,' OR ');
-  		  query = query + " net_name = 'Africell' )";
-  		  }
-  			layer.setSQL(query);
-			africell_layer = true ;
-			numb_butt_select = numb_butt_select + 1 ;
-		}
-		
-		return africell_layer;
-		
-		
-	  },
-	  airtel: function(layer){
-		
-		if (airtel_layer == true){
-			query = query.replace(/ net_name = 'Airtel' /g,'');
-			query = query.replace(/\(  OR /g,'(');	
-			query = query.replace(/\( OR /g,'(');
-			query = query.replace(/OR \)/g,')');
-			query = query.replace(/\(  AND \)/g,'');	
-			query = query.replace(/OR  OR/g,'OR');
-  			$('.button.airtel').removeClass('selected');
-  			removelayer == "";
-  			airtel_layer = false;
-
-  			numb_butt_select = numb_butt_select - 1 ;
-  			
-  			if (numb_butt_select == 0){
-				query = query.replace(/ AND \(/g,'');
-				query = query.replace(/\)/g,'');
-  		  	}
-
-  			layer.setSQL(query);
-
-  		}else{
-  		if (numb_butt_select == 0){
-  		  	query = query + " AND ( net_name = 'Airtel' )";
-  		  	 }
-  		  else {
-		  query = query.replace(/\)/g,' OR ');
-  		  query = query + " net_name = 'Airtel' )";
-  		  }
-  			layer.setSQL(query);
-			airtel_layer = true ;
-			numb_butt_select = numb_butt_select + 1 ;
-		}
-		
-		return airtel_layer;
-		
+	  sick: function(){
+  			//query = query + " OR type = 'sick' ";
+	  		//sublayers[1].setSQL(sql_global_type + query);
+	  		$('.button.death').removeClass('selected');	
 	  }
 	  
 	}	  
@@ -386,22 +208,22 @@
 	});
 
 
+$('.button.sick').addClass('selected');
+
 	var removelayer = "";
-	var africell_layer = false;
-	var airtel_layer = false;
-	var smart_layer = false;
-	var numb_butt_select = 0;
+	var sick_layer = true;
+	var death_layer = false;
 	
-	var checkclick = function() {
-  if (africell_layer == true){
-   removelayer = "africell";   
+
+var checkclick = function() {
+
+  if (sick_layer == true){
+   removelayer = "sick";   
   }
-  if (airtel_layer == true){
-   removelayer = "airtel";   
+  if (death_layer == true){
+   removelayer = "death";   
   }
-  if (smart_layer == true){
-   removelayer = "smart";   
-  }
+  
 };
 $('.button').bind( "click", checkclick );
 
@@ -411,11 +233,15 @@ $('.button').bind( "click", checkclick );
 </head>
 <body onload="init()">
 
+<td width="" height="100%">	 
 
- 
 	  <div id='map'></div>
- 
-	  
+ 	  
+ 	  <div id='menu'>
+		<a href="#death" id="death" class="button death">Death</a> 
+		<a href="#sick" id="sick" class="button sick">Sick</a> 
+	  </div>
+</td>	  
     </script>
 	  
 	</td>
