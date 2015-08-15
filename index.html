@@ -137,7 +137,10 @@
         }
         ,{
 	  sql: "SELECT * FROM sierra_leone_admin2_boundary",
-	  cartocss: "#sierra_leone_admin2_boundary{polygon-fill: #5CA2D1;polygon-opacity: 0.1;line-color: #F11810;line-width: 3;line-opacity: 0.12;}#sierra_leone_admin2_boundary::labels {text-name: [admin2_name];text-face-name: 'DejaVu Sans Book';text-size: 9;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 4;text-dy: -10;text-allow-overlap: false;text-placement: point;text-placement-type: simple;[zoom <=7] {text-size:2}[zoom =7] {text-size:5}[zoom=8] {text-size:9}[zoom=9] {text-size:12}[zoom=10] {text-size:20}[zoom=11] {text-size:25}[zoom =8] {text-dy:-25}[zoom =9] {text-dy:-25}[zoom =10] {text-dy:-39}[zoom =11] {text-dy:-29}[zoom =12] {text-dy:-39}[zoom <=8] {text-allow-overlap: false}[zoom=5] {text-size:0.5}[zoom=5] {text-halo-radius:0.5}[zoom=6] {text-halo-radius:1.5}}"
+	  cartocss: "#sierra_leone_admin2_boundary{polygon-fill: #5CA2D1;polygon-opacity: 0.1;line-color: #F11810;line-width: 3;line-opacity: 0.12;}#sierra_leone_admin2_boundary::labels {text-name: [admin2_name];text-face-name: 'DejaVu Sans Book'; text-size: 9; text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 4;text-dy: -10;text-allow-overlap: false;text-placement: point;text-placement-type: simple;[zoom <=7] {text-size:2}[zoom =7] {text-size:5}[zoom=8] {text-size:9}[zoom=9] {text-size:12}[zoom=10] {text-size:20}[zoom=11] {text-size:25}[zoom =8]{text-dy:-25}[zoom =9] {text-dy:-25}[zoom =10] {text-dy:-39}[zoom =11]{text-dy:-29}[zoom =12] {text-dy:-39}[zoom <=8] {text-allow-overlap: false}[zoom=5]{text-size:0.5}[zoom=5] {text-halo-radius:0.5}[zoom=6] {text-halo-radius:1.5}}"
+	},{
+	  sql: "SELECT * FROM sierra_leone_admin3_boundary",
+	  cartocss: "#sierra_leone_admin3_boundary{polygon-fill: #5CA2D1;polygon-opacity: 0.1;line-color: #F11810;line-width: 2.5;line-opacity: 0.1;}#sierra_leone_admin3_boundary::labels {text-name: [admin3_name];text-face-name: 'DejaVu Sans Book';text-size: 20;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 3;text-dy: -10;text-allow-overlap: false;text-placement: point;text-placement-type: simple;[zoom <=7] {text-size:2}[zoom =7] {text-size:5}[zoom=8] {text-size:6.5}[zoom=9] {text-size:8}[zoom=10] {text-size:10}[zoom=11] {text-size:15}[zoom =10] {text-dy:-19}[zoom =11]{text-dy:-29}[zoom =12] {text-dy:-39}[zoom=8] {text-allow-overlap: false}[zoom =6]{text-halo-radius:0.5}[zoom =7] {text-halo-radius:1}[zoom=8] {text-halo-radius:1.5}[zoom =6] {text-size:1}[zoom =6]{text-size:1.5}[zoom =5] {text-size:1}[zoom =5] {text-halo-radius:0.5}[zoom =11]{text-dy:-40}[zoom =12] {text-dy:-40}}"
 	}
 	]
 	}
@@ -156,6 +159,8 @@
 		createSelectorDistrict(sublayers[0]);
 		
 		createSelectorChoropleth(sublayers[0]);
+		
+		sublayers[2].hide();
 
 		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin3_death', 'admin3_sick', 'death_count', 'sick_count', 'symptoms', 'call_type' ])	
 
@@ -165,7 +170,7 @@
            type: "custom",
            data: [
             { name: "Death (Number of calls)", value: "#081B47" },
-            { name: "Sick (Number of calls)", value: "#B2DF8A" }
+            { name: "Sick (Number of calls)", value: "#229A00" }
            ]
 		});
 		
@@ -199,6 +204,21 @@
   			//query = query + " OR type = 'sick' ";
 	  		//sublayers[1].setSQL(sql_global_type + query);
 	  		$('.button.death').removeClass('selected');	
+	  },
+	  prefec: function(){
+  			query = query.replace('Admin3','Admin2');
+	  		sublayers[0].setSQL(query);
+	  		$('.button.subprefec').removeClass('selected');
+	  		sublayers[2].hide();
+	  		sublayers[1].toggle();	
+		
+	  },
+	  subprefec: function(){
+  			query = query.replace('Admin2','Admin3');
+	  		sublayers[0].setSQL(query);
+	  		$('.button.prefec').removeClass('selected');
+	  		sublayers[1].hide();
+	  		sublayers[2].toggle();	
 	  }
 	  
 	}	  
@@ -227,6 +247,9 @@ var checkclick = function() {
 };
 $('.button').bind( "click", checkclick );
 
+$('.button.sick').addClass('selected');
+$('.button.prefec').addClass('selected');
+
 	
   }
   </script>
@@ -238,6 +261,10 @@ $('.button').bind( "click", checkclick );
 	  <div id='map'></div>
  	  
  	  <div id='menu'>
+ 	  
+ 	  	<a href="#subprefec" id="subprefec" class="button subprefec">Chiefdom</a>
+		<a href="#prefec" id="prefec" class="button prefec">District</a>
+ 	  
 		<a href="#death" id="death" class="button death">Death</a> 
 		<a href="#sick" id="sick" class="button sick">Sick</a> 
 	  </div>
