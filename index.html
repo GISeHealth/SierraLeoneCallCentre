@@ -71,7 +71,7 @@
 	//var previous_signal = 'all_signal';
 	//var previous_net_type = 'all_net_type';
 	
-	var sqlQuery = "SELECT the_geom_webmercator, sick_count, symptoms, call_type, death_count, admin3_sick, total_count, admin3_death FROM sierra_leone_callcentre_data ";
+	var sqlQuery = "SELECT the_geom_webmercator, sick_count, symptoms, call_type, death_count, admin3_sick, total_count, admin3_death FROM sierra_leone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
 	
 	var query = sqlQuery;
 	var text_replace_area ;
@@ -133,7 +133,7 @@
 	type: 'cartodb',
 	sublayers: [{
 	  sql: sqlQuery,
-	  cartocss: "#sierra_leone_callcentre_data{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 0.5;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 40;marker-fill: #FF6600;marker-allow-overlap: true;[zoom <=7] {marker-width:5}[zoom =7] {marker-width:10} [zoom =8] {marker-width:14}[zoom = 9] {marker-width:25}[zoom =10] {marker-width:40}[zoom =11] {marker-width:45}[zoom =12] {marker-width:43}[zoom =13] {marker-width:45}[zoom =14] {marker-width:50}}#sierra_leone_callcentre_data::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;[zoom <=7] {text-size:5}[zoom =7] {text-size:10}[zoom = 15] {text-size:5}[zoom = 8] {text-size:5}[zoom =9] {text-size:10}[zoom = 10]{text-size:20}[zoom =11] {text-size:25}[zoom=5] {text-size:0.5}}"
+	  cartocss: "#sierra_leone_callcentre_data{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 40;marker-allow-overlap: true;[zoom <=7] {marker-width:8}[zoom =7] {marker-width:17} [zoom =8] {marker-width:16}[zoom = 9] {marker-width:25}[zoom =10] {marker-width:40}[zoom =11] {marker-width:45}[zoom =12] {marker-width:43}[zoom =13] {marker-width:45}[zoom =14] {marker-width:50}}#guinea_callcentredata_1[call_type='Death'] {marker-fill: #000000;}#sierra_leone_callcentre_data[call_type='Sick'] {marker-fill: #229A00;}#sierra_leone_callcentre_data::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;[zoom <=7] {text-size:5}[zoom =7] {text-size:10}[zoom = 15] {text-size:5}[zoom = 8] {text-size:5}[zoom =9] {text-size:10}[zoom = 10]{text-size:20}[zoom =11] {text-size:25}[zoom=5] {text-size:0.5}}"
         }
         ,{
 	  sql: "SELECT * FROM sierra_leone_admin2_boundary",
@@ -162,7 +162,7 @@
 		
 		sublayers[2].hide();
 
-		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin3_death', 'admin3_sick', 'death_count', 'sick_count', 'symptoms', 'call_type' ])	
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin3_death', 'admin3_sick', 'death_count', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
 
 			
 		
@@ -195,14 +195,14 @@
 
 	
 	 death: function(){
-  			//query = query + " OR type = 'death' ";
-	  		//sublayers[1].setSQL(sql_global_type + query);
+  			query = query.replace('Sick','Death');
+	  		sublayers[0].setSQL(query);
 	  		$('.button.sick').removeClass('selected');
 		
 	  },
 	  sick: function(){
-  			//query = query + " OR type = 'sick' ";
-	  		//sublayers[1].setSQL(sql_global_type + query);
+  			query = query.replace('Death','Sick');
+	  		sublayers[0].setSQL(query);
 	  		$('.button.death').removeClass('selected');	
 	  },
 	  prefec: function(){
