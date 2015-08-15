@@ -81,7 +81,7 @@
 	//var previous_signal = 'all_signal';
 	//var previous_net_type = 'all_net_type';
 	
-	var sqlQuery = "SELECT the_geom_webmercator, sick_count, symptoms, call_type, death_count, admin3_sick, total_count, admin3_death FROM sierra_leone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
+	var sqlQuery = "SELECT the_geom_webmercator, sick_count, symptoms, call_type, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
 	
 	var query = sqlQuery;
 	var text_replace_area ;
@@ -143,7 +143,7 @@
 	type: 'cartodb',
 	sublayers: [{
 	  sql: sqlQuery,
-	  cartocss: "#sierra_leone_callcentre_data{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;}#sierra_leone_callcentre_data[call_type='Death'] {marker-fill: #000000;}#sierra_leone_callcentre_data[call_type='Sick'] {marker-fill: #229A00;}#sierra_leone_callcentre_data::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
+	  cartocss: "#sierraleone_callcentre_data{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;}#sierraleone_callcentre_data[call_type='Death'] {marker-fill: #000000;}#sierraleone_callcentre_data[call_type='Sick'] {marker-fill: #229A00;}#sierra_leone_callcentre_data::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
         }
         ,{
 	  sql: "SELECT * FROM sierra_leone_admin2_boundary",
@@ -172,7 +172,7 @@
 		
 		sublayers[2].hide();
 
-		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin3_death', 'admin3_sick', 'death_count', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'death_count', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
 
 			
 		
