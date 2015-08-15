@@ -31,6 +31,16 @@
     #menu a.selected { 
       color: #F84F40;
     }
+
+	    #type_title { position: absolute; top: 1px; right: 700px; width: 20px; height:15px; background: transparent; z-index:10;}	
+	    #sick { position: absolute; top: 20px; right: 650px; width: 10px; height:15px; background: transparent; z-index:10;}
+	   #death { position: absolute; top: 50px; right: 650px; width: 10px; height:15px; background: transparent; z-index:10;}
+
+	   	    #admin_title { position: absolute; top: 1px; right: 610px; width: 25px; height:15px; background: transparent; z-index:10;}	   
+	   	    #prefec { position: absolute; top: 20px; right: 550px; width: 10px; height:15px; background: transparent; z-index:10;}
+	   #subprefec { position: absolute; top: 50px; right: 550px; width: 10px; height:15px; background: transparent; z-index:10;}
+	
+	
 	
 	  #layer_selector {
         position: absolute;
@@ -262,11 +272,14 @@ $('.button.prefec').addClass('selected');
  	  
  	  <div id='menu'>
  	  
+ 	  <div id="admin_title"><h7>Administration areas</h7></div>
  	  	<a href="#subprefec" id="subprefec" class="button subprefec">Chiefdom</a>
 		<a href="#prefec" id="prefec" class="button prefec">District</a>
- 	  
+		
+ 	  <div id="type_title"><h7>Call type</h7></div> 	  
 		<a href="#death" id="death" class="button death">Death</a> 
-		<a href="#sick" id="sick" class="button sick">Sick</a> 
+ 	  	<a href="#sick" id="sick" class="button sick">Sick</a> 
+		
 	  </div>
 </td>	  
     </script>
