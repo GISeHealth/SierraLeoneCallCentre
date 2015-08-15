@@ -81,7 +81,8 @@
 	//var previous_signal = 'all_signal';
 	//var previous_net_type = 'all_net_type';
 	
-	var sqlQuery = "SELECT the_geom_webmercator, sick_count, symptoms, call_type, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
+	var sqlQuery = "SELECT the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
+	
 	
 	var query = sqlQuery;
 	var text_replace_area ;
@@ -172,7 +173,7 @@
 		
 		sublayers[2].hide();
 
-		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'death_count', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
 
 			
 		
