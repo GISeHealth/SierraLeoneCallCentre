@@ -95,9 +95,9 @@
 	//var previous_signal = 'all_signal';
 	//var previous_net_type = 'all_net_type';
 	
-	var sqlQuery = "SELECT the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
+	var sqlQuery = "SELECT cartodb_id,the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
 	
-	var sqlAll = "SELECT the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data as sierraleone_callcentre_data_all WHERE call_type = 'Sick' and admin_category = 'Admin2'";
+	var sqlAll = "SELECT cartodb_id,the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data as sierraleone_callcentre_data_all WHERE call_type = 'Sick' and admin_category = 'Admin2'";
 	
 	var query = sqlQuery;
 	var query_all = sqlAll;
@@ -175,7 +175,7 @@
 	},
 	{
 	  sql: sqlQuery,
-	  cartocss: "#sierraleone_callcentre_data_death{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill: #000000;}#sierraleone_callcentre_data_death[call_type='Death'] {marker-fill: #000000;}#sierra_leone_callcentre_data_death::labels {text-name: [death_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
+	  cartocss: "#sierraleone_callcentre_data_death{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill: #000000;}#sierraleone_callcentre_data_death {marker-fill: #000000;}#sierra_leone_callcentre_data_death::labels {text-name: [death_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
         }
 	]
 	}
@@ -199,13 +199,13 @@
 		sublayers[1].hide();
 		sublayers[4].hide();
 		
-		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'cartodb_id','admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
 		
 				cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(4), [ 'admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])
 
 
 		
-				cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(1), [ 'admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])			
+				cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(1), [ 'cartodb_id','admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])			
 		
 		var legendCallType = new cdb.geo.ui.Legend({
            type: "custom",
@@ -245,7 +245,7 @@
 	
 	 death: function(){
 
-  			query = query.replace('Sick','Death');
+  			//query = query.replace('Sick','Death');
 	  		sublayers[4].setSQL(query);
 	  		sublayers[4].toggle();
 	  		sublayers[1].hide();
@@ -257,7 +257,7 @@
 	  },
 	  sick: function(){
 
-  			query = query.replace('Death','Sick');
+  			//query = query.replace('Death','Sick');
 	  		sublayers[0].setSQL(query);
 	  		sublayers[0].toggle();
 	  		sublayers[1].hide();
@@ -280,6 +280,7 @@
   			query = query.replace('Admin3','Admin2');
   			query_all = query_all.replace('Admin3','Admin2');
 	  		sublayers[0].setSQL(query);
+	  		sublayers[4].setSQL(query);
 	  		sublayers[1].setSQL(query_all);
 	  		$('.button.subprefec').removeClass('selected');
 	  		sublayers[3].hide();
@@ -290,6 +291,7 @@
   			query = query.replace('Admin2','Admin3');
   			query_all = query_all.replace('Admin2','Admin3');
 	  		sublayers[0].setSQL(query);
+	  		sublayers[4].setSQL(query);
 	  		sublayers[1].setSQL(query_all);
 	  		$('.button.prefec').removeClass('selected');
 	  		sublayers[2].hide();
