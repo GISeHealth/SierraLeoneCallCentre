@@ -32,14 +32,14 @@
       color: #F84F40;
     }
 
-	       	    #type_title { position: absolute; top: 1px; left: -280px; width: 20px; height:15px; color: white; 
+	       	    #type_title { position: absolute; top: 1px; right: -200px; width: 20px; height:14px; color: white; 
         
      
 
       width: 70px;
       padding: 5px;
       text-align: center;
-      font: bold 15px "Helvetica",Arial;
+      font: bold 12px "Helvetica",Arial;
       line-height: normal;
       color: white;
    
@@ -48,22 +48,22 @@
       text-decoration: none;
           
     	    }	
-	    #sick { position: absolute; top: 20px; left: -280px; width: 10px; height:15px; background: transparent; z-index:10;}
-	   #death { position: absolute; top: 50px; left: -280px; width: 10px; height:15px; background: transparent; z-index:10;}
-	   #all { position: absolute; top: 80px; left: -280px; width: 10px; height:15px; background: transparent; z-index:10;}
+	    #sick { position: absolute; top: 20px; right: -210px; width: 10px; height:15px; background: transparent; z-index:10;}
+	   #death { position: absolute; top: 50px; right: -210px; width: 10px; height:15px; background: transparent; z-index:10;}
+	   #all { position: absolute; top: 80px; right: -210px; width: 10px; height:15px; background: transparent; z-index:10;}
 	   
-	   	    #admin_title { position: absolute; left: -180px;
-    top: 1px;  width: 25px;
+	   	    #admin_title { position: absolute; right: -350px;
+    top: 1px;  width: 13px;
 	   	    
 	   	    
-	   	    height:15px; color: white; 
+	   	    height:13px; color: white; 
         
      
 
       width: 120px;
-      padding: 25px;
+      padding: 10px;
       text-align: center;
-      font: bold 15px "Helvetica",Arial;
+      font: bold 11px "Helvetica",Arial;
       line-height: normal;
       color: white;
    
@@ -72,8 +72,27 @@
       text-decoration: none;
 	   	     
 	   	      }	   
-	   	    #prefec { position: absolute; top: 55px; right: 550px; width: 20px; height:15px; background: transparent; z-index:10;}
-	   #subprefec { position: absolute; top: 85px; right: 550px; width: 20px; height:15px; background: transparent; z-index:10;}
+	   	    #prefec { position: absolute; top: 25px; right: -337px; width: 20px; height:15px; background: transparent; z-index:10;}
+	   #subprefec { position: absolute; top: 55px; right: -337px; width: 20px; height:15px; background: transparent; z-index:10;}
+  
+  #download { position: absolute; left: -350px;
+    bottom: -450px;  width: 85px;
+	   	    
+	   	    
+	   	    height:35px; color: blue; 
+        
+     
+
+      width: 120px;
+      padding: 30px;
+      text-align: center;
+      font: bold 10px "Helvetica",Arial;
+      line-height: normal;
+      color: blue;
+   
+      border: 1px solid #777777;
+      background: blue;
+      text-decoration: none;}
       
   </style>
   
@@ -352,6 +371,8 @@ $('.button.prefec').addClass('selected');
 		<a href="#death" id="death" class="button death">Death</a> 
  	  	<a href="#sick" id="sick" class="button sick">Sick</a> 
  	  	<a href="#all" id="all" class="button all">All</a> 
+		
+				<a id=download class="button download"  href="http://ehealthafrica.cartodb.com/api/v2/sql?format=csv&q=SELECT+*+FROM+sierraleone_callcentre_data" target="_blank">Download as CSV</a>
 		
 	  </div>
 </td>	  
