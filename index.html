@@ -115,9 +115,9 @@
 	//var previous_signal = 'all_signal';
 	//var previous_net_type = 'all_net_type';
 	
-	var sqlQuery = "SELECT cartodb_id,the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data WHERE call_type = 'Sick' and admin_category = 'Admin2' ";
+	var sqlQuery = "SELECT the_geom_webmercator, cartodb_id, symptoms, district , chiefdom , calls_related_to_sick, date_created, admin_category, total_count, calls_related_to_death FROM sierra_leone_call_centre_data_2 WHERE calls_related_to_sick != 0 and admin_category = 'Admin2' ";
 	
-	var sqlAll = "SELECT cartodb_id,the_geom_webmercator, sick_count, chiefdom_admin3, district_admin2, symptoms, call_type, admin_category, death_count, total_count FROM sierraleone_callcentre_data as sierraleone_callcentre_data_all WHERE call_type = 'Sick' and admin_category = 'Admin2'";
+	var sqlAll = "SELECT cartodb_id, the_geom_webmercator, symptoms, district , chiefdom , calls_related_to_sick, date_created, admin_category, total_count, calls_related_to_death FROM sierra_leone_call_centre_data_2 as sierraleone_callcentre_data WHERE admin_category = 'Admin2'";
 	
 	var query = sqlQuery;
 	var query_all = sqlAll;
@@ -180,11 +180,11 @@
 	type: 'cartodb',
 	sublayers: [{
 	  sql: sqlQuery,
-	  cartocss: "#sierraleone_callcentre_data{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;}#sierraleone_callcentre_data[call_type='Sick'] {marker-fill: #229A00;}#sierra_leone_callcentre_data::labels {text-name: [sick_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
+	  cartocss: "#sierraleone_callcentre_data[calls_related_to_sick != 0]{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type:ellipse;marker-allow-overlap:true;marker-fill:#229A00;}#sierraleone_callcentre_data::labels {text-name: [calls_related_to_sick];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}#sierraleone_callcentre_data[calls_related_to_sick <= 370] {marker-width: 35.0;}#sierraleone_callcentre_data[calls_related_to_sick <= 200] {marker-width: 28.3;}#sierraleone_callcentre_data[calls_related_to_sick <= 100] {marker-width: 20.3;}"
         }
         ,{
 	  sql: sqlAll,
-	  cartocss: "#sierraleone_callcentre_data_all{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill:  #0F3B82;}#sierra_leone_callcentre_data_all::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
+	  cartocss: "#sierraleone_callcentre_data_all{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill:  #0F3B82;}#sierraleone_callcentre_data_all::labels {text-name: [total_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}#sierraleone_callcentre_data_all[total_count <= 3000] {marker-width: 35.0;}#sierraleone_callcentre_data_all[total_count <= 800] {marker-width: 28.3;}#sierraleone_callcentre_data_all[total_count <= 300] {marker-width: 20.3;}"
         },
         {
 	  sql: "SELECT * FROM sierra_leone_admin2_boundary",
@@ -195,7 +195,7 @@
 	},
 	{
 	  sql: sqlQuery,
-	  cartocss: "#sierraleone_callcentre_data_death{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill: #000000;}#sierraleone_callcentre_data_death {marker-fill: #000000;}#sierra_leone_callcentre_data_death::labels {text-name: [death_count];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}"
+	  cartocss: "#sierraleone_callcentre_data_death[calls_related_to_death != 0]{marker-fill-opacity: 0.9;marker-line-color: #FFF;marker-line-width: 1;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 28;marker-allow-overlap:true;marker-fill: #000000;}#sierraleone_callcentre_data_death::labels {text-name: [calls_related_to_death];text-face-name: 'DejaVu Sans Book';text-size: 10;text-label-position-tolerance: 10;text-fill: #000000;text-halo-fill: #FFFFFF;text-halo-radius: 1;text-dy: 0;text-allow-overlap: true;text-placement: interior;text-placement-type: simple;}#sierraleone_callcentre_data_death[calls_related_to_death <= 770] {marker-width: 35.0;}#sierraleone_callcentre_data_death[calls_related_to_death <= 278] {marker-width: 28.3;}#sierraleone_callcentre_data_death[calls_related_to_death <= 192] {marker-width: 20.3;}"
         }
 	]
 	}
@@ -219,20 +219,20 @@
 		sublayers[1].hide();
 		sublayers[4].hide();
 		
-		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [ 'cartodb_id','admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])	
-		
-				cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(4), [ 'admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(0), [  'date_created','admin_category', 'calls_related_to_sick', 'calls_related_to_death', 'total_count', 'chiefdom', 'district', 'symptoms','cartodb_id'])	
 
 
-		
-				cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(1), [ 'cartodb_id','admin_category','death_count','chiefdom_admin3', 'district_admin2', 'sick_count', 'symptoms', 'call_type', 'total_count' ])			
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(1), [ 'date_created','admin_category', 'calls_related_to_sick', 'calls_related_to_death', 'total_count', 'chiefdom', 'district', 'symptoms','cartodb_id'])	
+
+		cdb.vis.Vis.addInfowindow(map, layer.getSubLayer(4), [ 'date_created','admin_category', 'calls_related_to_sick', 'calls_related_to_death', 'total_count', 'chiefdom', 'district', 'symptoms','cartodb_id' ])	
+				
 		
 		var legendCallType = new cdb.geo.ui.Legend({
            type: "custom",
            data: [
-            { name: "Death (Number of calls)", value: "#081B47" },
-            { name: "Sick (Number of calls)", value: "#229A00" },
-            { name: "All type (Number of calls)", value: "#0F3B82" },
+            { name: "Sick (number of sick calls)", value: "#229A00" },
+            { name: "Death (number of death calls)", value: "#081B47" },
+            { name: "All type (total number of calls)", value: "#0F3B82" }
            ]
 		});
 		
@@ -265,7 +265,7 @@
 	
 	 death: function(){
 
-  			//query = query.replace('Sick','Death');
+  			query = query.replace('calls_related_to_sick !=','calls_related_to_death !=');
 	  		sublayers[4].setSQL(query);
 	  		sublayers[4].toggle();
 	  		sublayers[1].hide();
@@ -277,7 +277,7 @@
 	  },
 	  sick: function(){
 
-  			//query = query.replace('Death','Sick');
+  			query = query.replace('calls_related_to_death !=','calls_related_to_sick !=');
 	  		sublayers[0].setSQL(query);
 	  		sublayers[0].toggle();
 	  		sublayers[1].hide();
@@ -373,7 +373,7 @@ $('.button.prefec').addClass('selected');
  	  	<a href="#sick" id="sick" class="button sick">Sick</a> 
  	  	<a href="#all" id="all" class="button all">All</a> 
 	
-	<a id=download class="button download"  href="http://ehealthafrica.cartodb.com/api/v2/sql?format=csv&q=SELECT+*+FROM+sierraleone_callcentre_data" target="_blank">Download as CSV</a>
+	<a id=download class="button download"  href="http://ehealthafrica.cartodb.com/api/v2/sql?format=csv&q=SELECT+prefectures,sub_prefectures,date_created,symptoms,latitude,longitude,admin_category,calls_related_to_sick,calls_related_to_death,total_count,cartodb_id,created_at,updated_at+FROM+sierra_leone_call_centre_data_2" target="_blank">Download as CSV</a>
 		
 		
 	  </div>
